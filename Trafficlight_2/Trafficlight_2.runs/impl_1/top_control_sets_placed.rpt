@@ -1,0 +1,87 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
+| Date         : Mon Sep 25 16:10:43 2023
+| Host         : LAPTOP-9G4PBER8 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7a35ti
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |     9 |
+|    Minimum number of control sets                        |     9 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    39 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |     9 |
+| >= 0 to < 4        |     2 |
+| >= 4 to < 6        |     0 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     2 |
+| >= 10 to < 12      |     1 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     4 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              11 |            7 |
+| No           | No                    | Yes                    |              21 |            6 |
+| No           | Yes                   | No                     |              49 |           13 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |              40 |           10 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------------------------+-------------------------------+-------------------------------------+------------------+----------------+--------------+
+|           Clock Signal           |         Enable Signal         |           Set/Reset Signal          | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------------------------+-------------------------------+-------------------------------------+------------------+----------------+--------------+
+|  CONTROL/Soundctrl_reg_i_2_n_0   |                               | CONTROL/Soundctrl_reg_i_3_n_0       |                1 |              1 |         1.00 |
+|  CONTROL/rPedestrian_reg_i_2_n_0 |                               |                                     |                1 |              1 |         1.00 |
+|  BLINKER/O11[0]                  |                               | CONTROL/rTimer[7]_i_2_n_0           |                2 |              8 |         4.00 |
+|  BLINKER/O11[0]                  |                               | BLINKER/rPedestrian2                |                2 |              9 |         4.50 |
+|  sysClk_IBUF_BUFG                |                               |                                     |                6 |             10 |         1.67 |
+|  sysClk_IBUF_BUFG                |                               | SOUND/rCount[0]_i_1_n_0             |                5 |             20 |         4.00 |
+|  sysClk_IBUF_BUFG                | DBC_MODE/rCount[0]_i_2__1_n_0 | DBC_MODE/rCount[0]_i_1__1_n_0       |                5 |             20 |         4.00 |
+|  sysClk_IBUF_BUFG                | DBC_PEDESTRIAN/sel            | DBC_PEDESTRIAN/rCount[0]_i_1__0_n_0 |                5 |             20 |         4.00 |
+|  sysClk_IBUF_BUFG                |                               | BLINKER/rPedestrian2                |                9 |             32 |         3.56 |
++----------------------------------+-------------------------------+-------------------------------------+------------------+----------------+--------------+
+
+
