@@ -91,12 +91,14 @@ module top # (
         
     // (debounced) switches.
     wire wDcbMode;                  // Debounced wire for mode switch.
+    
+    wire wDcbOff;                  // Debounced wire for Off switch.
         
     // Blinker.
     wire wBlink;                    // Blinker output.
     
     // Control.
-    wire [1:0] wCtrlLight;          // Control light status.
+    wire [2:0] wCtrlLight;          // Control light status.
     
     wire ctrlPedestrian;
     
@@ -132,6 +134,17 @@ module top # (
         .in(sw[0]),                     // Input switch #0.
         .out(wDbcMode)
     );   
+    
+    // Debouncer for the off selector.
+    debounce #(
+        .C_CLK_FRQ(C_CLK_FRQ),          // Clock frequency [Hz].
+        .C_INTERVAL(C_DBC_INTERVAL)     // Debounce lock interval [ms].
+    ) DBC_OFF (
+        .rstb(sysRstb),
+        .clk(sysClk),
+        .in(sw[1]),                     // Input switch #1.
+        .out(wDbcOff)
+    );  
         
     // Generate blink timebase.
     blinker #(
@@ -159,9 +172,10 @@ module top # (
         .blink(wBlink),
         
         // Inputs.
-        .inMode(wDbcMode),              // From DBC_PEDESTRIAN. 
+        .inMode(wDbcMode),              // From DBC_MODE. 
         .inTraffic(1'b0),               // UNUSED.
 	    .inPedestrian(wDbcPedestrian),  // From DBC_PEDESTRIAN.
+	    .inOff(wDbcOff),                // From DBC_OFF
         
         // Outputs.
         .outLight(wCtrlLight),

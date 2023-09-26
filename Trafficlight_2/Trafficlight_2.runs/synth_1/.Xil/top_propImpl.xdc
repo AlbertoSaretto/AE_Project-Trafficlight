@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:{C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.srcs/constrs_1/imports/constraints/pinout_Arty-A7.xdc} rfile:../../../Trafficlight_2.srcs/constrs_1/imports/constraints/pinout_Arty-A7.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:{C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.srcs/constrs_1/imports/constraints/pinout_Arty-A7.xdc} rfile:../../../Trafficlight_2.srcs/constrs_1/imports/constraints/pinout_Arty-A7.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:29 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict { PACKAGE_PIN C2    IOSTANDARD LVCMOS33 } [get_ports { sysRstb }]; #IO_L16P_T2_35 Sch=ck_rst
 set_property src_info {type:XDC file:1 line:32 export:INPUT save:INPUT read:READ} [current_design]

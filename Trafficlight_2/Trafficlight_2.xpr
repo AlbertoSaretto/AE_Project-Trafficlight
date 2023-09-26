@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="61" Path="C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.xpr">
+<Project Version="7" Minor="61" Path="C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="bc5ce8949a474712a6032433b79af775"/>
@@ -43,7 +43,7 @@
     <Option Name="SimulatorGccVersionRiviera" Val="9.3.0"/>
     <Option Name="SimulatorGccVersionActiveHdl" Val="9.3.0"/>
     <Option Name="BoardPart" Val="digilentinc.com:arty-a7-35:part0:1.1"/>
-    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../../AppData/Roaming/Xilinx/Vivado/2022.2/xhub/board_store/xilinx_board_store"/>
+    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../../../AppData/Roaming/Xilinx/Vivado/2022.2/xhub/board_store/xilinx_board_store"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
@@ -92,7 +92,7 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sources_1/imports/Trafficlight_files/blinker.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Trafficlight_files/blinker.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../Trafficlight_files/blinker.v"/>
           <Attr Name="ImportTime" Val="1694870466"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -101,7 +101,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Trafficlight_files/control2.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Trafficlight_files/control2.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../Trafficlight_files/control2.v"/>
           <Attr Name="ImportTime" Val="1695020407"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -110,7 +110,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Trafficlight_files/debounce.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Trafficlight_files/debounce.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../Trafficlight_files/debounce.v"/>
           <Attr Name="ImportTime" Val="1694870466"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -119,7 +119,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Trafficlight_files/light.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Trafficlight_files/light.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../Trafficlight_files/light.v"/>
           <Attr Name="ImportTime" Val="1694870466"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -128,7 +128,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Trafficlight_files/sound.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Trafficlight_files/sound.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../Trafficlight_files/sound.v"/>
           <Attr Name="ImportTime" Val="1694870466"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -137,7 +137,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Trafficlight_files/top.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Trafficlight_files/top.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../Trafficlight_files/top.v"/>
           <Attr Name="ImportTime" Val="1694870466"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -154,7 +154,7 @@
       <Filter Type="Constrs"/>
       <File Path="$PSRCDIR/constrs_1/imports/constraints/Arty-A7-35-Master.xdc">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../AE_TRAFFICLIGHT/sources/constraints/Arty-A7-35-Master.xdc"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../AE_TRAFFICLIGHT/sources/constraints/Arty-A7-35-Master.xdc"/>
           <Attr Name="ImportTime" Val="1683816181"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -162,7 +162,7 @@
       </File>
       <File Path="$PSRCDIR/constrs_1/imports/constraints/pinout_Arty-A7.xdc">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../AE_TRAFFICLIGHT/sources/constraints/pinout_Arty-A7.xdc"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../AE_TRAFFICLIGHT/sources/constraints/pinout_Arty-A7.xdc"/>
           <Attr Name="ImportTime" Val="1683816181"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>

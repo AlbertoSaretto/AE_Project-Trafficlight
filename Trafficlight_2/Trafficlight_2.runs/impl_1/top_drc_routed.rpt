@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date         : Mon Sep 25 16:11:04 2023
+| Date         : Tue Sep 26 19:52:53 2023
 | Host         : LAPTOP-9G4PBER8 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_drc_routed.rpt -pb top_drc_routed.pb -rpx top_drc_routed.rpx
 | Design       : top
@@ -24,12 +24,12 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 3
+             Violations found: 4
 +----------+----------+-----------------------------------------------------+------------+
 | Rule     | Severity | Description                                         | Violations |
 +----------+----------+-----------------------------------------------------+------------+
 | CFGBVS-1 | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1          |
-| PDRC-153 | Warning  | Gated clock check                                   | 2          |
+| PDRC-153 | Warning  | Gated clock check                                   | 3          |
 +----------+----------+-----------------------------------------------------+------------+
 
 2. REPORT DETAILS
@@ -54,7 +54,12 @@ Related violations: <none>
 
 PDRC-153#2 Warning
 Gated clock check  
-Net CONTROL/rPedestrian_reg_i_2_n_0 is a gated clock net sourced by a combinational pin CONTROL/rPedestrian_reg_i_2/O, cell CONTROL/rPedestrian_reg_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net CONTROL/outLight_reg[2]_i_2_n_0 is a gated clock net sourced by a combinational pin CONTROL/outLight_reg[2]_i_2/O, cell CONTROL/outLight_reg[2]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#3 Warning
+Gated clock check  
+Net DBC_OFF/out_reg_1 is a gated clock net sourced by a combinational pin DBC_OFF/rPedestrian_reg_i_2/O, cell DBC_OFF/rPedestrian_reg_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 

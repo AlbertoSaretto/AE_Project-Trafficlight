@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.runs/synth_1'
+HD_PWD='C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

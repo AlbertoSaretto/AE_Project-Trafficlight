@@ -17,7 +17,7 @@ proc create_report { reportName command } {
   }
 }
 namespace eval ::optrace {
-  variable script "C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.runs/impl_1/top.tcl"
+  variable script "C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.runs/impl_1/top.tcl"
   variable category "vivado_impl"
 }
 
@@ -126,7 +126,7 @@ set rc [catch {
   set_param chipscope.maxJobs 3
   set_param xicom.use_bs_reader 1
   open_checkpoint top_routed.dcp
-  set_property webtalk.parent_dir {C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.cache/wt} [current_project]
+  set_property webtalk.parent_dir {C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.cache/wt} [current_project]
 set_property TOP top [current_fileset]
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }

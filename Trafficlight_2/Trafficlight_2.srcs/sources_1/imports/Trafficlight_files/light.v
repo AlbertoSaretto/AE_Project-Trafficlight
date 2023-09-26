@@ -44,7 +44,7 @@ module  light # (
 	) (
 		input rstb,               // Reset (bar).  
 		input clk,                // Clock.
-		input [1:0] inSel,        // Selection (light selection).
+		input [2:0] inSel,        // Selection (light selection).
 		output [11:0] outLED      // Output LED to fabric.
 	);
 
@@ -72,10 +72,11 @@ module  light # (
 	// Update the output accordingly to the selection signal.
 	always @ (posedge clk) begin
         case (inSel)
-            2'b00: rMask <= 12'b111000000000;   // Red only.
-            2'b10: rMask <= 12'b000111000000;   // Yellow only.
-            2'b01: rMask <= 12'b000000111000;   // Green only.
-            2'b11: rMask <= 12'b111000000111;   // Red & Walk together.
+            3'b000: rMask <= 12'b111000000000;   // Red only.
+            3'b001: rMask <= 12'b000000111000;   // Green only.
+            3'b010: rMask <= 12'b000111000000;   // Yellow only.
+            3'b011: rMask <= 12'b111000000111;   // Red & Walk together.
+            3'b100: rMask <= 12'b000000000000;   // Off state.
         endcase
 	end
 	

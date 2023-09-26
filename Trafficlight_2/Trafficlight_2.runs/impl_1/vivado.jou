@@ -2,12 +2,12 @@
 # Vivado v2022.2 (64-bit)
 # SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
 # IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-# Start of session at: Mon Sep 25 16:11:30 2023
-# Process ID: 21152
-# Current directory: C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.runs/impl_1
+# Start of session at: Tue Sep 26 19:55:09 2023
+# Process ID: 32616
+# Current directory: C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.runs/impl_1
 # Command line: vivado.exe -log top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top.tcl -notrace
-# Log file: C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.runs/impl_1/top.vdi
-# Journal file: C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/Trafficlight_2/Trafficlight_2.runs/impl_1\vivado.jou
+# Log file: C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.runs/impl_1/top.vdi
+# Journal file: C:/Users/alber/Alberto_Saretto/PHYSICS_Unipd/Applied Electronics/AE_Project-Trafficlight/Trafficlight_2/Trafficlight_2.runs/impl_1\vivado.jou
 # Running On: LAPTOP-9G4PBER8, OS: Windows, CPU Frequency: 2592 MHz, CPU Physical cores: 6, Host memory: 16935 MB
 #-----------------------------------------------------------
 source top.tcl -notrace

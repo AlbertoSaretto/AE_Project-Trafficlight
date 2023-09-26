@@ -56,7 +56,8 @@ module control #(
 	input inMode,                      // Pedestrian (1) / traffic (0) priority selector.
 	input inTraffic,                   // Traffic sensor.
 	input inPedestrian,                // Pedestrian button.
-	output reg[1 : 0] outLight,         // Output light selection.
+	input inOff,                        //Off switch
+	output reg[2 : 0] outLight,        // Output light selection.
 	output reg rPedestrian,
 	output reg Soundctrl
 );
@@ -67,28 +68,30 @@ module control #(
     // =========================================================================
     
     // SM states names.
-    localparam sRed         = 2'b00;
-    localparam sGreen       = 2'b01;
-    localparam sYellow      = 2'b10;
-    localparam sWalk        = 2'b11;
+    localparam sRed         = 3'b000;
+    localparam sGreen       = 3'b001;
+    localparam sYellow      = 3'b010;
+    localparam sWalk        = 3'b011;
+    localparam sOff         = 3'b100;
 
     // SM outputs. Here they are completely redundant, just
     // to show an example of pre-coding.
-    localparam sRedOut      = 2'b00;
-    localparam sGreenOut    = 2'b01;
-    localparam sYellowOut   = 2'b10;
-    localparam sWalkOut     = 2'b11;
+    localparam sRedOut      = 3'b000;
+    localparam sGreenOut    = 3'b001;
+    localparam sYellowOut   = 3'b010;
+    localparam sWalkOut     = 3'b011;
+    localparam sOffOut      = 3'b100;
 
     // SM state ragister.
-    reg [1:0] rState = sRed;    // Safest state to start a semaphore!
-    reg [1:0] rStateOld;        // Old state, used to generate the counter reset signal.
+    reg [2:0] rState = sRed;    // Safest state to start a semaphore!
+    reg [2:0] rStateOld;        // Old state, used to generate the counter reset signal.
     
     // SM next state logic. THIS WILL NOT generate an actual Flip-Flop!
-    reg [1:0] lStateNext;       // Next state register, does not require initialization.
+    reg [2:0] lStateNext;       // Next state register, does not require initialization.
     wire wStateJump;            // Signals state(S) transitions.
         
     // Interval timer register.
-    reg [7:0] rTimer;           // BEWARE: vector must contain the biggest interval.
+    reg [8:0] rTimer;           // BEWARE: vector must contain the biggest interval.
     reg [8:0] rTimer2;
     
     // Pedestrian button register.
@@ -138,6 +141,7 @@ module control #(
                 sGreen: begin outLight <= sGreenOut; end
                 sYellow: begin outLight <= sYellowOut; end
                 sWalk: begin outLight <= sWalkOut; end
+                sOff: begin outLight <= sOffOut; end
             endcase            
         end
     end
@@ -170,10 +174,11 @@ module control #(
 
         // Increase the timer.
         end else if (rState == sGreen || rState == sYellow) begin
-            rTimer2 <= 0;
-            
+            rTimer2 <= 0;  
         end else if (rState == sWalk || rState == sRed) begin
             rTimer2 <= rTimer2 + 1;
+        end else if (rState == sOff) begin
+            rTimer2 <= 0;
         end
     end
     
@@ -184,6 +189,8 @@ module control #(
         
         // Reset (bar).
         if (rstb == 1'b0 || rState == sWalk) begin
+            rPedestrian <= 1'b0;
+        end else if (inOff == 1'b1) begin
             rPedestrian <= 1'b0;
         end else begin
             
@@ -202,19 +209,19 @@ module control #(
     always @(rstb, rState, inPedestrian) begin
         
         // Reset (bar).
-        if (rstb == 1'b0 || rState == sRed ) begin
+        if (rstb == 1'b0 || inOff == 1'b1 ) begin
             Soundctrl <= 1'b0;
         end else if (rState == sGreen) begin
                 Soundctrl <= 1'b0;
         end else if (rState == sYellow) begin
                 Soundctrl <= 1'b0;
+        end else if (rState == sRed) begin
+                Soundctrl <= 1'b0;
         end else begin
             
             if (Soundctrl == 1'b1) begin
                 Soundctrl <= 1'b1;
-            end
-            // Switch to '1' if the input is '1', or the there has been no
-            else if (rState == sWalk) begin
+            end else if (rState == sWalk) begin
                 Soundctrl <= 1'b1;
             end
         end
@@ -241,44 +248,46 @@ module control #(
         // Select among states.
         case (rState)
             
-            // Red.
-            sWalk: begin
-                
-                // The pedestrian has priority in 'inMode = 1', and shortens the red interval.
-                //if (rPedestrian == 1'b1 & inMode == 1'b1) begin
-                //    lStateNext <= sWalk;        // Force transition to walk.
-                                    
-                // Otherwise, just wait for the red interval to expire.
-                    if (rTimer2 >= C_INT_RED & rTimer2 <= (C_INT_RED+(C_INT_WALK/2))) begin
+            // Walk.
+            sWalk: begin         
+                if (inOff == 1'b1) begin
+                    lStateNext <= sOff;
+                end else begin
+                    if (rTimer2 > (C_INT_RED+1) & rTimer2 <= (C_INT_RED+(C_INT_WALK/2))) begin
                         if (rTimer >= C_INT_LONG) begin
                             lStateNext <= sRed;
                         end else begin
                             lStateNext <= sWalk;
-                        end   // Jump to green.        
-                    end else if (rTimer2 <= (C_INT_RED+C_INT_WALK+C_INT_SHORT) & rTimer2 > (C_INT_RED+(C_INT_WALK/2))) begin
+                        end           
+                    end else if (rTimer2 > (C_INT_RED+(C_INT_WALK/2)) & rTimer2 <= (C_INT_RED+C_INT_WALK+C_INT_SHORT)) begin
                         if (rTimer >= C_INT_SHORT) begin
-                            lStateNext <= sRed;     // Stay on red until tRed expires.
+                            lStateNext <= sRed;   
                         end else begin
                             lStateNext <= sWalk;
                         end
-                    end else begin 
-                        lStateNext <= sWalk;
+                    end else begin
+                        lStateNext <= sRed;
                     end
                 end
+            end
             
             // Green.
             sGreen: begin
                 
-                // The pedestrian has priority in 'inMode = 1', and shortens the green interval.
-                if (rPedestrian == 1'b1 & inMode == 1'b1) begin
-                    lStateNext <= sYellow;      // Force transition to yellow.
-                
-                // Otherwise, just wait for the green interval to expire.
-                end else begin
-                    if (rTimer >= C_INT_GREEN) begin
-                        lStateNext <= sYellow;  // No pedestrian priority, jump only if tGreen expired.
+                if (inOff == 1'b1) begin
+                    lStateNext <= sOff;
+                end else begin                       
+                    // The pedestrian has priority in 'inMode = 1', and shortens the green interval.
+                    if (rPedestrian == 1'b1 & inMode == 1'b1) begin
+                        lStateNext <= sYellow;      // Force transition to yellow.
+                   
+                    // Otherwise, just wait for the green interval to expire.
                     end else begin
-                        lStateNext <= sGreen;   // Stay on green until tGreen expires.
+                        if (rTimer >= C_INT_GREEN) begin
+                            lStateNext <= sYellow;  // No pedestrian priority, jump only if tGreen expired.
+                        end else begin
+                            lStateNext <= sGreen;   // Stay on green until tGreen expires.
+                        end
                     end
                 end
             end
@@ -286,38 +295,62 @@ module control #(
             // Yellow.
             sYellow: begin
                 
-                // Jump only at the end of the yellow interval, always to red.
-                if (rTimer >= C_INT_YELLOW) begin
-                    lStateNext <= sRed;         // There is a pedestrian, jump to pedestrian.
-                end else begin    
-                    lStateNext <= sYellow;      // There is NO pedestrian, jump to red.
+                if (inOff == 1'b1) begin
+                    lStateNext <= sOff;
+                end else begin
+                    // Jump only at the end of the yellow interval, always to red.
+                    if (rTimer >= C_INT_YELLOW) begin
+                        lStateNext <= sRed;         
+                    end else begin    
+                        lStateNext <= sYellow;      
+                    end
                 end
             end
                 
-            // Pedestrian.
+            // Red.
             sRed: begin
- 
-                // Jump only at the end of the pedestrian interval, and always to red for safety.
-                if (rTimer >= C_INT_RED & rTimer2 <= (C_INT_RED+1) ) begin
-                    lStateNext <= sWalk;         // Timer expired, jump to red.
-                end else if (rTimer2 > (C_INT_RED+1) & rTimer2 <= (C_INT_RED+ (C_INT_WALK/2))) begin
-                    if (rTimer >= C_INT_LONG) begin
-                        lStateNext <= sWalk;
-                    end else begin
-                        lStateNext <= sRed;
+                
+                if (inOff == 1'b1) begin
+                    lStateNext <= sOff;
+                end else begin                
+                    if (rTimer2 <= C_INT_RED+1) begin
+                        if (rTimer >= C_INT_RED) begin
+                            lStateNext <= sWalk; 
+                        end else begin
+                            lStateNext <= sRed;
+                        end   
+                    end else if (rTimer2 > C_INT_RED+1 & rTimer2 <=(C_INT_RED +(C_INT_WALK/2))) begin
+                        if (rTimer >= C_INT_LONG) begin
+                            lStateNext <= sWalk;
+                        end else begin
+                            lStateNext <= sRed;
+                        end
+                    end else if (rTimer2 >= (C_INT_RED+(C_INT_WALK/2)) &rTimer2 <= (C_INT_RED+C_INT_WALK)) begin
+                        if (rTimer >= C_INT_SHORT) begin
+                           lStateNext <= sWalk;
+                        end else begin
+                            lStateNext <= sRed;
+                        end
+                    end else if (rTimer2 > C_INT_RED+C_INT_WALK) begin    
+                        if (rTimer >= C_INT_RED) begin
+                            lStateNext <= sGreen; 
+                        end else begin
+                            lStateNext <= sRed;
+                        end 
                     end
-                end else if (rTimer2 <= (C_INT_RED+C_INT_WALK) & rTimer2 >= (C_INT_RED+(C_INT_WALK/2))) begin
-                    if (rTimer >= C_INT_SHORT) begin
-                       lStateNext <= sWalk;
-                    end else begin
-                        lStateNext <= sRed;
-                    end
-                end else if (rTimer >= C_INT_RED & rTimer2 >= (C_INT_RED+C_INT_WALK) ) begin    
-                    lStateNext <= sGreen;  // Wait for interval to expire..
-                end else begin    
-                    lStateNext <= sRed;  // Wait for interval to expire..
                 end
             end
+            
+            sOff: begin
+            
+                if (inOff == 1'b1) begin
+                    lStateNext <= sOff;
+                end else if (inOff == 1'b0) begin
+                    lStateNext <= sRed;
+                end 
+            end
+            
+            
             
             // Default (recovery from errors).
             default: begin
