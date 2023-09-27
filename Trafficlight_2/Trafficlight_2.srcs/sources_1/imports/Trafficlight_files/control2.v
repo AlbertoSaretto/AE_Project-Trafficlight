@@ -188,17 +188,21 @@ module control #(
     always @(rstb, rState, inPedestrian) begin
         
         // Reset (bar).
-        if (rstb == 1'b0 || rState == sWalk) begin
+        if (rstb == 1'b0) begin
             rPedestrian <= 1'b0;
-        end else if (inOff == 1'b1) begin
-            rPedestrian <= 1'b0;
-        end else begin
             
+        end else if (rState == sOff) begin
+            rPedestrian <= 1'b0;
+        end else if (rState == sRed) begin
+            rPedestrian <= 1'b0;
+        end else if (rState == sWalk) begin
+            rPedestrian <= 1'b0;
+        end else if (rState == sYellow) begin
+            rPedestrian <= 1'b0;
+        end else begin   //Remain 1 or become 1 only if the light is Green (or Yellow)     
             if (rPedestrian == 1'b1) begin
                 rPedestrian <= 1'b1;
-            end
-            // Switch to '1' if the input is '1', or the there has been no
-            else if (inPedestrian == 1'b1) begin
+            end else if (inPedestrian == 1'b1) begin
                 rPedestrian <= 1'b1;
             end
         end
