@@ -1,7 +1,5 @@
 # AE_Project-Trafficlight
 
-Design and implementation of a trafficlight on a FPGA.
-
 In this project we have worked on the design and implementation on a FPGA of a complete trafficlight with the use of Verilog on Xilinx Vivado.
 The project have been developed starting from the code proposed during the Applied Electronics course, adding functionalities such as sound output, pedestrian states and Off state.
 
